@@ -1,0 +1,157 @@
+<!-- Importante: Asegúrate de que el nombre del Managed Bean sea consistente -->
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:param name="titulo" value="Agregar Mascota Usuario"/>
+    <ui:define name="content">
+        <style>
+
+
+            *{
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+            }
+            .madre {
+                background-color: #E3E3E3;
+            }
+            .contenedorIntranet {
+                background-color: #E3E3E3;
+                width: 600px;
+                height: 90vh;
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                margin: 0 auto;
+            }
+            .prueba {
+                width: 50px;
+                height: 50px;
+
+            }
+            .datos {
+                height: 50px;
+                font-size: 20px;
+            }
+            .logoIntranet {
+                text-align: center ;
+            }
+            .contraseña {
+                display: flex;
+                justify-content: end;
+            }
+            .continuar:hover {
+                background-color: rgb(214, 216, 214);
+            }
+            .caja1 {
+                display: flex;
+                justify-content: space-between;
+            }
+            .continuar {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 3px solid black;
+            }
+            @media (max-width: 600px) {
+                .datos {
+                    font-size: 12px !important;
+                }
+                .inputContraseña {
+                    font-size: 15px;
+                }
+                .introIntranet{
+                    font-size: 25px !important;
+                    font-weight: bold;
+                }
+                .subIntranet{
+                    font-size: 15px !important;
+
+                }
+                .continuar{
+                    font-size: 8px !important;
+
+                }
+                .iconoRedes{
+                    height: 20px !important;
+                }
+                .contenedorIntranet {
+                    width: 320px;
+
+
+                }
+            }
+        </style>
+        <div style="margin-top: 10vh;display: flex;align-items: center;justify-content: center">
+
+            <h:form enctype="multipart/form-data" style="width: 80%" >
+                <h:inputHidden id="userId" value="#{registroMascotaBean.idUsuario}" />
+
+                <h2 style="font-size: 35px;text-align: center">Mis Patitas Registro Mascota</h2>
+
+
+                <h5 style="font-size: 20px; margin-bottom: -10px;">Nombre de la Mascota</h5>
+                <h:inputText id="nombre" label="Nombre de la Mascota" validatorMessage="Nombre Invalido" 
+                             value="#{registroMascotaBean.nombreMascota}" autocomplete="off" 
+                             styleClass="datos" style="padding-left:10px; font-size: 20px;" required="true">
+                    <f:validateRegex pattern="^[a-zA-Z0-9\s]+$" />
+                    <f:validateLength minimum="1" maximum="255" />
+
+                </h:inputText>                
+                <h:message for="nombre" style="color: red;"/>  
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
+                    <div>
+                        <h5 style="font-size: 20px;margin-bottom:10px;">Raza</h5>
+                        <h:inputText label="Raza de la Mascota" id="raza" validatorMessage="Raza Invalida"  value="#{registroMascotaBean.razaMascota}" autocomplete="off"  class="datos"  style="padding-left:10px;font-size: 20px;width: 100%" required="true" >
+                            <f:validateRegex pattern="^[a-zA-Z0-9\s]+$" />
+                            <f:validateLength minimum="1" maximum="255" />
+
+                        </h:inputText>                
+                        <h:message for="raza" style="color: red;"/> 
+                    </div>
+                    <div>
+                        <h5 style="font-size: 20px;margin-bottom:10px;">¿Género?</h5>
+                        <h:inputText label="Genero de la Mascota" id="genero" validatorMessage="Genero Invalido" value="#{registroMascotaBean.generoMascota}" autocomplete="off" styleClass="datos"  style="padding-left:10px;font-size: 20px;width: 100%" required="true" >
+                            <f:validateRegex pattern="^[a-zA-Z0-9\s]+$" />
+                            <f:validateLength minimum="1" maximum="255" />
+
+                        </h:inputText>                
+                        <h:message for="genero" style="color: red;"/> 
+                    </div>
+                </div>
+
+                <h5 style="font-size: 20px;margin-bottom: -10px;">Fecha de Nacimiento</h5>
+                <h:inputText a:type="date" value="#{registroMascotaBean.fechaMascota}" 
+                             validatorMessage="Ingrese la fecha" id="fecha"  >
+                    <f:convertDateTime type="localDate" pattern="yyyy-MM-dd"/>
+                    <f:validateRequired />
+                </h:inputText> 
+                <h:message for="fecha" style="color: red;"/>
+
+                <h5 style="font-size: 20px;margin-bottom: -10px;">Descripción</h5>
+                <h:inputTextarea label="Descripcion de la Mascota" id="descripcion" validatorMessage="Texto invalido" value="#{registroMascotaBean.descripcionMascota}" style="width: 100%;height: 100px;resize: none;padding: 10px" required="true" >
+                    <f:validateRegex pattern="^[a-zA-Z0-9\s]+$" />
+                    <f:validateLength minimum="1" maximum="255" />
+
+                </h:inputTextarea>                
+                <h:message for="descripcion" style="color: red;"/> 
+
+                <h5 style="font-size: 20px;margin-bottom: -10px;">Seleccione Foto de la Mascota</h5>
+                <h:inputFile value="#{registroMascotaBean.imagenMascota}"  autocomplete="off" styleClass="datos"  style="padding-left:10px;font-size: 20px;width: 100%;" required="true" />
+                <h:inputHidden id="campoOculto" value="#{registroMascotaBean.idUsuario}" /> 
+                <div style="width: 100%;display: flex;align-items: center;justify-content: center">
+                <h:commandButton action="#{registroMascotaBean.registrarMascota}" value="Registrar Mascota" style="color: white;background-color: black;cursor: pointer;padding: 10px;font-size: 20px" />
+
+                </div>
+            </h:form>
+        </div>
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,81 @@
+<!-- Importante: Asegúrate de que el nombre del Managed Bean sea consistente -->
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:param name="titulo" value="Registrar Historial"/>
+    <ui:define name="content">
+
+        <div style="margin-top: 10vh;display: flex;align-items: center;justify-content: center">
+
+            <h:form enctype="multipart/form-data" style="width: 80%" >
+
+                <h2 style="font-size: 35px;text-align: center">Mis Patitas Registro de Historial</h2>
+
+                <h:inputHidden id="campoOculto" value="#{registrarHistorial.idHistorial}" /> 
+
+                <h5 style="font-size: 20px; margin-bottom: -10px;">Codigo Veterinario</h5>
+                <h:inputText  readonly="true" id="nombre" label="Codigo Veterinario" validatorMessage="Cod. Veterinario" 
+                              value="#{registrarHistorial.idCodigo}" autocomplete="off" 
+                              styleClass="datos" style="padding-left:10px; font-size: 20px;" required="true">
+                    <f:validateRegex pattern="^[a-zA-Z0-9\s]+$" />
+                    <f:validateLength minimum="1" maximum="255" />
+
+                </h:inputText>                
+                <h:message for="nombre" style="color: red;"/>  
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px">
+                    <div>
+                        <div>
+                            <h5 style="font-size: 20px;margin-bottom:10px;">Codigo Mascota</h5>
+                            <h:inputText readonly="true" label="Codigo Mascota" id="raza" validatorMessage="Codigo Mascota Incorrecto"  value="#{registrarHistorial.idMascota}" autocomplete="off"  class="datos"  style="padding-left:10px;font-size: 20px;width: 100%" required="true" >
+                                <f:validateRegex pattern="^[a-zA-Z0-9\s]+$" />
+                                <f:validateLength minimum="1" maximum="255" />
+
+                            </h:inputText>                
+                            <h:message for="raza" style="color: red;"/> 
+                        </div>
+                        <div>
+                            <h5 style="font-size: 20px;margin-bottom: -10px;">Fecha</h5>
+                            <h:inputText a:type="date" value="#{registrarHistorial.fechaHistorial}" 
+                                         validatorMessage="Ingrese la fecha" id="fecha"  >
+                                <f:convertDateTime type="localDate" pattern="yyyy-MM-dd"/>
+                                <f:validateRequired />
+                            </h:inputText> 
+                            <h:message for="fecha" style="color: red;"/>
+
+                        </div>
+
+                    </div>
+                    <div>
+                        <h5 style="font-size: 20px;margin-bottom:10px;">Descripcion de Sintomas</h5>
+                        <h:inputTextarea label="Descripcion de Sintomas" id="genero" validatorMessage="Descripcion de Sintomas Invalido" value="#{registrarHistorial.sintomas}"  styleClass="datos"  style="padding-left:10px;font-size: 20px;width: 100%;height: 60%" required="true" >
+                            <f:validateRegex pattern="^[a-zA-Z0-9\s]+$" />
+                            <f:validateLength minimum="1" maximum="255" />
+
+                        </h:inputTextarea>                
+                        <h:message for="genero" style="color: red;"/> 
+                    </div>
+                </div>
+
+
+
+                <h5 style="font-size: 20px;margin-bottom: -10px;">Descripcion del Tratamiento</h5>
+                <h:inputTextarea label="Descripcion del Tratamiento" id="descripcion" validatorMessage="Descripcion del Tratamiento invalido" value="#{registrarHistorial.tratamiento}" style="width: 100%;height: 100px;resize: none;padding: 10px;" required="true" >
+                    <f:validateRegex pattern="^[a-zA-Z0-9\s]+$" />
+                    <f:validateLength minimum="1" maximum="255" />
+
+                </h:inputTextarea>                
+                <h:message for="descripcion" style="color: red;"/> 
+                <div style="width: 100%;display: flex;align-items: center;justify-content: center">
+                    <h:commandButton  action="#{registrarHistorial.registrarHistorial()}"  value="#{empty registrarHistorial.idHistorial ? 'Registrar Historial' : 'Actualizar Historial'}" style="color: white;background-color: black;cursor: pointer;padding: 10px;font-size: 20px" />
+
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

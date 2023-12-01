@@ -1,0 +1,75 @@
+<!-- Importante: Asegúrate de que el nombre del Managed Bean sea consistente -->
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:param name="titulo" value="Registrar Usuario"/>
+    <ui:define name="content">
+         <style>
+            .contenedorLogin{
+                margin-top: 10vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 90vh;
+                flex-direction: column;
+            }
+            .titulo{
+                text-transform: uppercase;
+                font-size: 30px;
+            }
+            .formularioInicio{
+
+            }
+        </style>
+        <div class="contenedorLogin">
+            <h1 class="titulo">Registrar Usuario</h1>
+            <h:form class="formulario">
+                <h:panelGrid columns="3" class="formularioInicio">
+                    <h:outputLabel value="Nombre" for="nombre"/>
+                    <h:inputText value="#{registrarUsuarioBean.nombre}" id="nombre" required="true" label="Nombre"
+                                 validatorMessage="Ingrese un nombre valido">
+                        <f:validateRegex pattern="^[a-zA-Z0-9\s]+$" />
+                        <f:validateLength minimum="1" maximum="255" />
+                    </h:inputText>
+                    <h:message for="nombre" style="color: red;" />  
+
+                    <h:outputLabel value="Correo electrónico " for="correo"/>
+                    <h:inputText value="#{registrarUsuarioBean.correo}" id="correo" required="true" label="Correo"
+                                 validatorMessage="Ingrese un correo válido">
+                        <f:validateRegex pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"/>
+                    </h:inputText>
+                    <h:message for="correo" style="color: red;" />
+
+                    <h:outputLabel value="Telefono " for="telefono"/>
+                    <h:inputText value="#{registrarUsuarioBean.telefono}" id="telefono" required="true" label="Telefono"
+                                 validatorMessage="Ingrese un Telefono válido">
+                        <f:validateRegex pattern="\d+" />
+
+                    </h:inputText>
+                    <h:message for="telefono" style="color: red;" />
+
+                    <h:outputLabel value="Contraseña" for="contrasena"/>
+                    <h:inputSecret value="#{registrarUsuarioBean.contrasena}" id="contrasena" required="true"
+                                   label="Contraseña"
+                                   validatorMessage="La contraseña debe tener al menos 6 caracteres">
+                        <f:validateLength minimum="6"/>
+                    </h:inputSecret> 
+                    <h:message for="contrasena" style="color: red;"/>
+                </h:panelGrid>    
+                <h:messages globalOnly="true" style="color: red;"/>
+
+
+                <p>
+                    <h:commandButton style="background-color: black;color: white;padding: 5px 10px;font-size: 20px" action="#{registrarUsuarioBean.registrarUsuario()}"  value="Registrar Usuario" />            
+                </p>
+
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

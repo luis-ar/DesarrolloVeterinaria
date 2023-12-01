@@ -1,0 +1,173 @@
+<!-- Importante: Asegúrate de que el nombre del Managed Bean sea consistente -->
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:param name="titulo" value="Contacto Usuario"/>
+    <ui:define name="content">
+        <style>
+            /* Estilos generales */
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+            }
+
+            .container {
+                max-width: 800px;
+                margin: 30px auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            header {
+                /* text-align: center;
+                margin-bottom: 20px; */
+
+                color: white;
+                text-align: center;
+                padding: 1em 0;
+                margin-top: 10vh;
+            }
+
+            h1 {
+                /*color: #333;*/
+                margin: 0;
+            }
+
+            .contact-form h2,
+            .contact-info h2 {
+                color: #555;
+                margin-bottom: 10px;
+            }
+
+            /* Formulario de contacto */
+            .contact-form form {
+                margin-top: 10px;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+                margin-right: 20px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            textarea {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            button {
+                background-color: #4CAF50;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: #45a049;
+            }
+
+            /* Información de contacto */
+            .contact-info p {
+                font-size: 16px;
+            }
+
+            .contact-info ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            .contact-info li {
+                margin-bottom: 10px;
+            }
+
+            /* Pie de página */
+
+
+            @media screen and (max-width: 600px) {
+                /* Estilos responsivos para pantallas pequeñas */
+                .container {
+                    padding: 10px;
+                }
+
+                .form-group {
+                    margin-bottom: 15px;
+                }
+
+                button {
+                    width: 100%;
+                }
+            }
+
+        </style>
+        <div class="container" >    
+            <section class="contact-form">
+                <h2 style="text-align: center">Formulario de Contacto</h2>
+                <h:form id="miFormulario" style="display: flex;flex-direction: column">
+                    <input type="hidden" value="#{usuario.idUsuario}" name="id" />
+                    <div class="form-group">
+                        <label>Nombre:</label>
+                        <h:inputText readonly="true" id="nombre" value="#{contactoUsuarioBean.usuario.nombreUsuario}" required="true"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefono:</label>
+                        <h:inputText readonly="true" id="telefono" value="#{contactoUsuarioBean.usuario.telefono}" required="true"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <h:inputText readonly="true" id="email" value="#{contactoUsuarioBean.usuario.correoUsuario}" required="true"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Mensaje:</label>
+                        <h:inputTextarea id="mensaje" value="#{contactoUsuarioBean.mensaje}" required="true" validatorMessage="Ingrese un mensaje válido"  label="Mensaje">
+                            <f:validateRegex pattern="^[a-zA-Z0-9\s]+$" />
+                        </h:inputTextarea>
+                        <h:message for="mensaje" style="color: red;" />
+                    </div>
+                    <h:inputHidden id="campoOculto" value="#{contactoUsuarioBean.idUsuario}" /> 
+                    
+                     <h:commandButton value="Enviar Mensaje" style="padding: 10px; background-color: black; color: white; margin: 0 auto;" action="#{contactoUsuarioBean.enviarMensaje}" >
+                        
+                    </h:commandButton> 
+                </h:form>
+            </section>
+
+        </div>
+
+        <script>
+            const envioContacto = (e) => {
+                var mensaje = document.getElementById("form:mensaje").value;
+                var regex = /^[a-zA-Z0-9\s]+$/;
+
+                if (!regex.test(mensaje)) {
+                    alert("Ingrese un mensaje válido");
+                    return false; // Evita que el formulario se envíe
+                }
+
+                return true; // Permite que el formulario se envíe
+            }
+
+        </script>
+
+    </ui:define>
+</ui:composition>

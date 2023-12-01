@@ -1,0 +1,172 @@
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:param name="titulo" value="Mascota Usuario"/>
+    <ui:define name="content">
+        <style>
+
+
+            .madreMascotaUsuario{
+                min-height: 90vh;
+                margin-top: 10vh;
+                padding:0 50px
+            }
+            .contenedorGeneral{
+                margin-bottom: 30px;
+            }
+            contenedorHistorialUsuario{
+                width: 90vh;
+            }
+            .nombreMascota{
+                font-size: 30px;
+                border-bottom: 5px solid red;
+                text-transform: uppercase;
+                margin-bottom: 30px;
+            }
+            .contenidoMascota{
+                display: grid;
+                grid-template-columns: 3fr 2fr;
+                gap: 30px;
+            }
+            .nombrePropietario{
+                font-size: 20px;
+                font-weight: bold;
+            }
+            .datosMascota{
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                padding-left: 30px;
+            }
+            .contenedorImagen{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin-bottom: 15px;
+            }
+            .fotoMascota{
+                width: 300px;
+                height: 300px;
+                object-fit: cover;
+
+            }
+            .tablaHistorial{
+                width: 100%;
+            }
+            .tablaHistorial th{
+                background-color: #C4C8C8;
+            }
+            .tablaHistorial td,th{
+                padding: 10px;
+                text-align: center;
+            }
+            .barraBuscar{
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
+            }
+            .btnAgregar a{
+                background-color: #65E3E3;
+                cursor: pointer;
+            }
+            .entradaTexto{
+                padding-left: 10px;
+            }
+            .textoBuscar{
+                position: relative;
+                margin: 0;
+            }
+            .lupa{
+                position: absolute;
+                right: 10px;
+                top: 30%;
+                cursor: pointer;
+            }
+
+            .contenedorHistorialVeterinario{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+            .camposHistorilaVeterinario{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+            .datosHistoialVeterinario h5{
+                font-size: 18px;
+                font-weight: bold;
+
+            }
+            .datosHistoialVeterinario{
+                padding: 30px;
+                border: 2px solid black;
+            }
+            .registrarHistorial{
+                padding: 10px;
+                font-size: 18px;
+                background-color: #65E3E3;
+                cursor: pointer;
+                width: 30%;
+
+            }
+        </style>
+
+        <div class="madreMascotaUsuario">
+
+            <div class="btnAgregar">
+                <a href="/MisPatitas/agregarMascotaUsuario.xhtml?tipoUsuario=usuario&amp;idCodigo=#{mascotaBean.idUsuario}">Agregar Mascota</a>
+            </div>
+
+            <c:choose>
+                <c:when test="${mascotaBean.listaMascota.size() eq 0}">
+                    <p style="font-size: 25px;font-weight: bold;">No hay mascotas registradas.</p>
+                </c:when>
+                <c:otherwise>
+                    <ui:repeat value="#{mascotaBean.listaMascota}" var="mascota">
+
+
+
+                        <div class="contenedorGeneral">
+
+                            <div class="nombreMascota">
+                                <span>#{mascota.nombreMascota}</span>
+                            </div>
+
+                            <div class="contenidoMascota">
+
+                                <div class="detalleMascota">
+                                    <div class="contenedorImagen">
+                                        <img src="data:image/jpeg;base64,#{mascota.imagenBase64}" alt="Imagen" />
+                                    </div>
+
+                                    <div class="datosMascota">
+                                        <p>Codigo: <span>#{mascota.idMascota}</span></p>
+                                        <p>Fecha Nacimiento: <span>#{mascota.fechaNacimiento}</span></p>
+                                        <p>Genero: <span>#{mascota.sexo}</span></p>
+                                        <p>Raza: <span>#{mascota.razaMascota}</span></p>
+                                    </div>
+                                </div>
+
+                                <div class="descripcionMascota">
+                                    #{mascota.descripcion}
+                                </div>
+
+                            </div>
+                        </div>
+                    </ui:repeat>
+                </c:otherwise>
+            </c:choose>
+
+
+
+
+        </div>
+
+    </ui:define>
+</ui:composition>
+

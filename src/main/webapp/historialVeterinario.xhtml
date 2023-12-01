@@ -1,0 +1,81 @@
+<!-- Importante: Asegúrate de que el nombre del Managed Bean sea consistente -->
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:param name="titulo" value="Historial Veterinario"/>
+    <ui:define name="content">
+        
+         <script type="text/javascript">
+            function irA(destino, tipoUsuario,idMascota) {
+                var codigo = localStorage.getItem('idCodigo');
+                var url = '/MisPatitas/' + destino + '.xhtml?prueba=pru&amp;tipoUsuario=' + tipoUsuario + '&amp;idCodigo=' + codigo+ '&amp;idMascota=' + idMascota;
+                window.location.href = url;
+            }
+            function irA2(destino, tipoUsuario,idMascota,idHistorial) {
+                var codigo = localStorage.getItem('idCodigo');
+                var url = '/MisPatitas/' + destino + '.xhtml?prueba=pru&amp;tipoUsuario=' + tipoUsuario + '&amp;idCodigo=' + codigo+'&amp;idHistorial=' + idHistorial+ '&amp;idMascota=' + idMascota;
+                window.location.href = url;
+            }
+        </script>
+        <div class="madreMascotaUsuario" style="margin-top: 10vh;">
+            <div class="nombreMascota" style="width: 100%;display: flex;justify-content: center;">
+                <span style="text-align: center;text-transform: uppercase;font-size: 40px;font-weight: bold">Historial Clinico</span>
+            </div>
+
+            <div>
+                <a href="#" onclick="irA('registrarHistorial', 'veterinario',#{historialVeterinarioBean.idMascota})" style="background-color: black;font-size: 20px;padding: 5px 10px;color: white;cursor: pointer">Agregar Historial</a>
+            </div>
+            <c:choose>
+                <c:when test="${empty historialVeterinarioBean.lista}">
+                    <h1 style="font-size: 30px">Aun no tiene Historial</h1>
+                </c:when>
+
+                <c:otherwise>
+
+
+                    <h:dataTable value="#{historialVeterinarioBean.lista}" var="mascota" border="1"
+                                 style="margin: 0 auto;text-align: center; width: 90%">
+                        <h:column>
+                            <f:facet name="header">Opciones</f:facet>
+                            <a href="#" onclick="irA2('registrarHistorial', 'veterinario',#{historialVeterinarioBean.idMascota},#{mascota.idHistorial})" style="margin-left: 10px;padding: 5px;background-color: #018ae0;font-weight: bold;cursor: pointer" >Editar</a>
+                            <a href="#" onclick="irA2('reporte', 'veterinario',#{historialVeterinarioBean.idMascota},#{mascota.idHistorial})"  style="margin-left: 10px;padding: 5px;background-color: red;font-weight: bold;cursor: pointer" >Eliminar</a>
+                        
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Descripcion</f:facet>
+                            <span>#{mascota.descripcion}</span>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Fecha Historial</f:facet>
+                            <span style="color: #{mascota.fechaHistorial ne null ? 'black' : 'red'}">
+                                #{mascota.fechaHistorial ne null ? mascota.fechaHistorial : 'Aún no hay historial'}
+                            </span>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Tratamiento</f:facet>
+
+                            <span style="color: #{mascota.tratamiento ne null ? 'black' : 'red'}">
+                                #{mascota.tratamiento ne null ? mascota.tratamiento : 'Aún no hay historial'}
+                            </span>
+                        </h:column>
+
+                    </h:dataTable>
+
+
+                </c:otherwise>
+            </c:choose>
+
+
+
+        </div>
+
+    </ui:define>
+</ui:composition>

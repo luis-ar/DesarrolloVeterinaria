@@ -1,0 +1,36 @@
+<!-- Importante: Asegúrate de que el nombre del Managed Bean sea consistente -->
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:param name="titulo" value="Historial Clínico"/>
+    <ui:define name="content">
+        <div class="contenedorHistorial" style="margin-top: 10vh">
+            <h1 class="tituloHistorial" style="text-align: center">Historial Clínico</h1>
+
+            <h:dataTable value="#{historialBean.listaHistorial}" var="historial" border="1">
+                <h:column>
+                    <f:facet name="header">Id</f:facet>
+                    <span>#{historial.descripcion}</span>
+                </h:column>
+                 <h:column>
+                    <f:facet name="header">Id</f:facet>
+                    <span>#{historial.tratamiento}</span>
+                </h:column>
+                 <h:column>
+                    <f:facet name="header">Id</f:facet>
+                    <span>#{historial.tratamiento}</span>
+                </h:column>
+                 <h:column>
+                    <f:facet name="header">Id</f:facet>
+                    <span>#{historial.tratamiento}</span>
+                </h:column>
+            </h:dataTable>
+        </div>
+    </ui:define>
+</ui:composition>

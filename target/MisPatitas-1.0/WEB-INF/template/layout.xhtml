@@ -1,0 +1,401 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'/>
+
+        <!-- Enlace a estiloEncabezado.css -->
+
+        <!-- Enlace a normalize.css -->
+        <h:outputStylesheet library="css" name="normalize.css" />
+       
+        <style>
+
+            *, *:before, *:after {
+                box-sizing: inherit;
+                padding: 0;
+                margin: 0;
+
+            }
+            body {
+                font-family: 'Open Sans', sans-serif;
+                font-size: 1rem;
+                line-height: 2; /*Interlineado*/
+            }
+            /* GLOBALES */
+            .contenedor {
+                width: 85% !important;
+                /*width: min(90%, 120rem)*/
+                margin: 0 auto; /*Centra el contenido horizontalmente*/
+            }
+            .encabezadoContenedor{
+                position: fixed;
+                top: 0;
+                z-index: 100;
+                background-color: black;
+                width: 100% !important;
+                height: 10vh;
+
+
+            }
+            .barra{
+                display: flex !important;
+                justify-content: space-between !important;
+                padding-left: 20px;
+                padding-right: 20px;
+                align-items: center !important;
+                height: 100% !important;
+            }
+            a {
+                text-decoration: none;
+            }
+            h1, h2, h3, h4 {
+                font-family: 'PT Sans', sans-serif;
+                line-height: 1.2; /*interlineado*/
+            }
+            h1 {
+                font-size: 3rem;
+            }
+            h2 {
+                font-size: 2.5rem;
+            }
+            h3 {
+                font-size: 2.2rem;
+            }
+            h4 {
+                font-size: 1.8rem;
+            }
+            img {
+                max-width: 100%;
+            }
+            /*UTILIDADES*/
+            .no-margin {
+                margin: 0;
+            }
+            .no-padding {
+                padding: 0;
+            }
+            .centrar-texto {
+                text-align: center;
+            }
+            /* HERADER */
+            .header {
+                background-image: linear-gradient(
+                    to top,
+                    rgba(90, 89, 93, 0.5) 0%,
+                    rgba(53, 53, 53, 0.5) 100%
+                    ),
+                    url(../img/banner.jpg);
+                height: 100vh;
+                background-size: cover; /*Ocupa todo el espacio disponible*/
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-position: center;
+                display: flex;
+                top: 0;
+                justify-content: center;
+                align-items: center;
+
+
+            }
+            .header__texto {
+                text-align: center;
+                color: #fff;
+                margin-top: 5rem;
+            }
+            @media (min-width: 768px) {
+                .header__texto {
+                    margin-top: 15rem;
+                }
+            }
+            @media (min-width: 768px) {
+                .barra {
+                    display: flex;
+                    justify-content: space-between; /*Alinea contenido horizontalmente*/
+                    align-items: center; /*Alinea contenido verticalmente*/
+                }
+            }
+            .logo {
+                color: #fff;
+                display: flex;
+                justify-content: center;
+                text-decoration: none;
+
+            }
+            .logo__nombre {
+                font-weight: normal;
+
+            }
+            .logo__bold {
+                font-weight: bold;
+            }
+            @media (min-width: 768px) {
+                .navegacion {
+                    display: flex;
+                    gap: 2rem; /*Separacion de los elementos*/
+                }
+            }
+            .navegacion__enlace{
+                display: block; /*Elementos uno sobre otro*/
+                text-align: center;
+                font-size: 1rem;
+                color: #fff;
+                font-weight: bold; /*Texto en negrita*/
+                text-decoration: none;
+            }
+            .navegacion__enlace:hover {
+                color: #d61c62;
+            }
+            /* SECCION DE LO QUE OFRECEMOS */
+            .caja2 {
+                margin-top: 3rem;
+                text-align: center;
+            }
+            .caja2 h3 {
+                text-transform: uppercase;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            /* SECCCION DE REFRAN Y CONTACTO */
+            .caja__texto h3, p {
+                text-align: center;
+            }
+            .caja__contacto {
+                text-align: center;
+            }
+            .boton {
+                background-color: #d61c62;
+                color: #fff;
+                padding: 1rem 5rem;
+                margin-top: 3rem;
+                font-size: 2rem;
+                text-transform: uppercase;
+                font-weight: bold;
+                border-radius: 10rem;
+                width: 90%;
+                border: none;
+            }
+            .boton:hover {
+                background-color: #018ae0;
+            }
+            @media (min-width: 768px) {
+                .boton {
+                    width: auto;
+                }
+                .caja {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+                .caja__texto h3 {
+                    text-align: left;
+                }
+            }
+            /* SECCION DE IMAGENES */
+            .img-efecto {
+                margin-top: 3rem;
+                display: flex;
+                width: 100%;
+                height: 43rem;
+            }
+            .img-efecto img {
+                width: 0;
+                flex-grow: 1;
+                object-fit: cover;
+                opacity: .8;
+                transition: .5s ease;
+            }
+            .img-efecto img:hover {
+                cursor: crosshair;
+                width: 300px;
+                opacity: 1;
+                filter: contrast(120%);
+            }
+            /* SECCION DE SERVICIOS */
+            .caja3 {
+                text-align: center;
+            }
+            @media (min-width: 768px) {
+                .caja3 h4,
+                .caja3 p {
+                    text-align: left;
+                }
+                .caja3 {
+                    display: flex;
+                    align-items: center;
+                }
+                .servicio {
+                    margin-top: 5rem;
+                }
+                .caja3__enlace{
+                    display: flex;
+                    margin-top: -3rem;
+                }
+            }
+            /* SECCION GALERIA */
+            .galeria {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-rows: repeat(2, 30rem);
+                gap: 1.5rem;
+                margin-bottom: 3rem;
+                margin-top: 2rem;
+            }
+            .galeria img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .galeria_img3 {
+                grid-column: 2/4;
+                grid-row: 1/3;
+            }
+            /* SECCION DE PIE DE PAGINA */
+            .pie_pagina {
+                background-color: rgb(20, 20, 20);
+                padding: 5rem;
+            }
+            @media (min-width: 768px) {
+                .contenedor_piepagina {
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
+            .info {
+                flex: 0 0 calc(33.3% - 1rem); /*Los 3 bloques alineados ocupando un espaciado del 33.3%*/
+                margin-bottom: 2rem;
+            }
+            .info h3, .info p {
+                color: white;
+                text-align: center;
+            }
+            .info h3 {
+                font-size: 1.5rem;
+            }
+            .info p {
+                font-size: 1rem;
+            }
+            .redes_pie {
+                text-align: center; /*iconos centrados*/
+            }
+            /* FOOTER */
+            .footer {
+                text-align: center;
+                background-color: black;
+                color: white;
+                padding: 2rem;
+                font-size: 1rem;
+            }
+            /* SECCION DE CARACTERISTICAS */
+            .caracteristica {
+                margin-top: 4rem;
+            }
+            @media (min-width: 768px) {
+                .caracteristicas {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    grid-template-rows: repeat(2, 30rem);
+                    gap: 1.5rem;
+                    margin-bottom: 3rem;
+                }
+                .carac_3 {
+                    grid-column: 2/3;
+                    grid-row: 1/3;
+                    display: flex;
+                    flex-direction: row-reverse;
+                    align-items: center;
+                }
+            }
+            /* Hamburguesa */
+            .hamburguesa{
+                font-size: 35px;
+                color: white;
+                display: none;
+                cursor: pointer;
+                margin-right: 40px;
+
+            }
+
+            
+
+            .navegacionEncabezado{
+                display: none;
+                position: fixed;
+                z-index: 100;
+                top: 10vh;
+                flex-direction: column;
+                background-color: black;
+                width: 150px;
+                min-width: 150px;
+                text-align: center;
+                background-color: red;
+                right:  0;
+                    /* transition: transform 0.3s ease-in-out; */
+            }
+            .navegacionEncabezado a{
+                color: white !important;
+
+            }
+            .navegacionEncabezado a:hover{
+                opacity: 0.8;
+                background-color: red;
+            }
+            @media (max-width: 600px) {
+                .logo__nombre{
+                    font-size: 30px !important;
+                }
+                .icon-tabler{
+                    width: 30px;
+                }
+
+            }
+            .navegacion{
+                width: 500px;
+                position:relative;
+            }
+
+
+            @media screen and (max-width: 1100px) {
+                /* Estilos responsivos para pantallas pequeñas */
+                #opcionesUsuario{
+                    display: none !important;
+                }
+                #opcionesVeterinario{
+                    display: none !important;
+                }
+                #opcionesPredeterminado{
+                    display: none !important;
+                }
+                .navegacionEncabezado{
+                }
+                .hamburguesa{
+                    display: block;
+                }
+            }
+            @media screen and (min-width: 1100px) {
+                
+                .navegacionEncabezado{
+                    display: none !important;
+                    background-color: yellow;
+                }
+               
+            }
+
+
+        </style>
+        <title>#{titulo}</title> 
+    </h:head>
+    <h:body>
+        <header>
+            <ui:include src="/WEB-INF/include/layout/header.xhtml"/>
+        </header>
+        <main>
+            <ui:insert name="content" />
+        </main>
+        <footer>
+            <ui:include src="/WEB-INF/include/layout/footer.xhtml"/>
+        </footer>
+    </h:body>
+</html>

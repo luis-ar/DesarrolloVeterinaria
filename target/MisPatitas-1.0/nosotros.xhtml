@@ -1,0 +1,590 @@
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:param name="titulo" value="Nosotros"/>
+    <ui:define name="content">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            :root {
+                scroll-behavior: smooth;
+            }
+
+            body {
+                font-family: "Lato", sans-serif;
+                font-family: "Open Sans", sans-serif;
+            }
+            .contenedor1 {
+                width: 90%;
+                max-width: 1200px;
+                overflow: hidden;
+                margin: auto;
+                padding: 60px 0;
+            }
+            .cerrarVentana {
+                color: black;
+                width: 40px;
+                position: fixed;
+                top: 1%;
+                
+            }
+            .header {
+/*                height: 100vh;*/
+                background-image: linear-gradient(
+                    to top,
+                    rgba(90, 89, 93, 0.5) 0%,
+                    rgba(53, 53, 53, 0.5) 100%
+                    ),
+                    url(img/fondo.jpg);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-attachment: fixed;
+                background-position: center;
+            }
+            .head {
+                text-align: center;
+                padding: 0;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                color: white;
+            }
+
+            .hamburger {
+                position: fixed;
+                top: 30px;
+                right: 30px;
+                height: 30px;
+                background: #fff;
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
+                border-radius: 10px;
+                box-shadow: 0 0 0 2px rgb(0, 0, 0, 0.5);
+            }
+            .menu-navegacion {
+                position: fixed;
+                z-index: 10;
+                top: 0;
+                right: 0;
+                width: 30vw;
+                height: 100%;
+                background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                align-items: center;
+                /* transition: transform 0.3s ease-in-out; */
+                transform: translate(110%);
+                box-shadow: 0 0 0 2px rgb(0, 0, 0, 0.5);
+            }
+            .spread {
+                transform: translate(0);
+            }
+            .menu-navegacion a {
+                color: white;
+                text-decoration: none;
+            }
+            .titulo {
+                font-size: 45px;
+                margin-bottom: 15px;
+                text-transform: uppercase;
+            }
+            .copy {
+                font-weight: 300;
+                font-size: 25px;
+            }
+            /* Nuestro servicio */
+
+            .subtitulo {
+                text-align: center;
+                font-weight: 300;
+                color: #9f8ad0;
+                margin-bottom: 40px;
+                font-size: 40px;
+            }
+            .contenedor-servicio {
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+            .contenedor-servicio img {
+                width: 40%;
+            }
+            .checklist-servicio {
+                width: 45%;
+            }
+            .service {
+                margin-bottom: 20px;
+            }
+            .n-service {
+                margin-bottom: 7px;
+                color: #9f8ad0;
+            }
+            .number {
+                display: inline-block;
+                background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+                width: 30px;
+                height: 30px;
+                color: #fff;
+                text-align: center;
+                border-radius: 50%;
+                font-weight: 700;
+                line-height: 30px;
+                margin-right: 5px;
+            }
+            .gallery {
+                background: #f2f2f2;
+            }
+            .contenedor-galeria {
+                display: flex;
+                justify-content: space-evenly;
+                flex-wrap: wrap;
+            }
+            .img-galeria {
+                object-fit: cover;
+                width: 30%;
+                display: block;
+                margin-bottom: 15px;
+                box-shadow: 0 0 0 2px rgb(0, 0, 0, 0.5);
+                cursor: pointer;
+            }
+            .imagen-light {
+                position: fixed;
+                background: rgb(0, 0, 0, 0.6);
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transform: translate(100%);
+                transition: transform 0.2s ease-in-out;
+            }
+            .show {
+                transform: translate(0);
+            }
+            .agregar-imagen {
+                object-fit: cover;
+                width: 60%;
+                border-radius: 10px;
+                transform: scale(0);
+                transition: transform 0.3s 0.2s;
+            }
+            .showImage {
+                transform: scale(1);
+            }
+
+            .close {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                width: 40px;
+                cursor: pointer;
+            }
+            .experts {
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+            .cont-expert {
+                width: 30%;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+            .cont-expert img {
+                width: 80%;
+                display: block;
+                margin: 0 auto;
+            }
+            .n-expert {
+                display: inline-block;
+                margin-top: 20px;
+                width: 100%;
+                font-weight: 400;
+            }
+
+            /* FOOTER */
+            footer {
+                background: #9f8ad0;
+                padding-bottom: 0.1px;
+            }
+            .footer-content {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                padding-top: 60px;
+                padding-bottom: 40px;
+            }
+            .contact-us {
+                width: 40%;
+                color: #fff;
+            }
+            .brand {
+                font-weight: 500;
+                font-size: 40px;
+                margin-bottom: 10px;
+            }
+            .brand + p {
+                font-weight: 500;
+            }
+            .social-media {
+                width: 50%;
+                display: flex;
+                justify-content: flex-end;
+            }
+            .social-media-icon {
+                display: inline-block;
+                margin-left: 20px;
+                width: 60px;
+                height: 60px;
+                border: 1px solid white;
+                border-radius: 50%;
+                text-align: center;
+                color: white;
+            }
+            .social-media-icon:hover {
+                background: white;
+                color: #9f8ad0;
+            }
+
+            .social-media-icon i {
+                font-size: 30px;
+                line-height: 60px;
+            }
+            .line {
+                width: 90%;
+                max-width: 1200px;
+                margin: 0 auto;
+                height: 2px;
+                background: white;
+                margin-bottom: 60px;
+            }
+
+            /*LLamamos  a la clase .card*/
+            .card {
+                position: relative;
+                width: 300px;
+                height: 350px;
+                margin: 20px;
+            }
+            /*LLamamos a la clase .face*/
+            .card .face {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                backface-visibility: hidden;
+                border-radius: 10px;
+                overflow: hidden;
+                transition: 1s;
+            }
+            /*LLamamos a la clase .front y seguimos estilizando*/
+            .card .front {
+                transform: perspective(600px) rotateY(0deg);
+                box-shadow: 0 5px 10px #000;
+            }
+            /*Estilizamos los que estan dentro de card y front*/
+            .card .front img {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            /*llamamos a la etiqueta h3 y damos estilo*/
+            .card .front h3 {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 45px;
+                line-height: 45px;
+                color: #fff;
+                background: rgba(0, 0, 0, 0.4);
+                text-align: center;
+            }
+            /*seguimos dando estilos en la clase .back*/
+            .card .back {
+                transform: perspective(600px) rotateY(180deg);
+                background: rgb(3, 35, 54);
+                padding: 15px;
+                color: #f3f3f3;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                text-align: center;
+                box-shadow: 0 5px 10px #000;
+            }
+            /*llamamos a la clase .link*/
+            .card .back .link {
+                border-top: solid 1px #f3f3f3;
+                height: 50px;
+                line-height: 50px;
+            }
+            /*llamamos a la etiqueta a*/
+            .card .back .link a {
+                color: #f3f3f3;
+            }
+            /*Estilizamos el titulo */
+            .card .back h3 {
+                font-size: 30px;
+                margin-top: 20px;
+                letter-spacing: 2px;
+            }
+            /*Estilizamos la etiqueta p*/
+            .card .back p {
+                letter-spacing: 1px;
+            }
+            /*Damos giro al from*/
+            .card:hover .front {
+                transform: perspective(600px) rotateY(180deg);
+            }
+
+            .card:hover .back {
+                transform: perspective(600px) rotateY(360deg);
+            }
+
+            @media screen and (max-width: 800px) {
+                .menu-navegacion {
+                    width: 50vw;
+                }
+                .titulo {
+                    font-size: 40px;
+                }
+                .contenedor-servicio img {
+                    width: 80%;
+                    margin-bottom: 40px;
+                }
+                .checklist-servicio {
+                    width: 80%;
+                }
+                .service {
+                    margin-bottom: 30px;
+                }
+                .agregar-imagen {
+                    width: 80%;
+                }
+                .img-galeria {
+                    width: 45%;
+                }
+                .cont-expert {
+                    width: 80%;
+                }
+                .footer-content {
+                    justify-content: center;
+                }
+                .social-media {
+                    width: 80%;
+                    justify-content: space-evenly;
+                }
+                .social-media-icon {
+                    margin-left: 0;
+                }
+
+                .social-media i {
+                    margin-left: 0;
+                }
+                .contact-us {
+                    text-align: center;
+                    width: 80%;
+                    margin-bottom: 40px;
+                }
+            }
+
+            @media screen and (max-width: 500px) {
+                .menu-navegacion {
+                    width: 65vw;
+                }
+                .hamburger {
+                    top: 20px;
+                    right: 20px;
+                }
+                .titulo {
+                    font-size: 30px;
+                }
+                .subtitulo {
+                    font-size: 30px;
+                }
+                .agregar-imagen {
+                    width: 96%;
+                }
+                .img-galeria {
+                    width: 95%;
+                }
+                .social-media {
+                    width: 100%;
+                }
+                .contact-us {
+                    width: 90%;
+                }
+            }
+        </style>
+        <div>
+            <div class="header" id="inicio">
+
+                <div class="contenedor1 head">
+                    <h1 class="titulo">Convertimos tus sueños en realidad</h1>
+                    <p class="copy">
+                        "El dinero no es el objetivo final, sino una herramienta para lograr
+                        tus metas. Administra sabiamente tus gastos y convierte tus metas
+                        en realidad"
+                    </p>
+                    <Animacion />
+                </div>
+            </div>
+
+
+            <main>
+                <section class="services contenedor1" id="servicio">
+                    <h2 class="subtitulo">Aspectos Generales</h2>
+                    <div class="contenedor-servicio">
+                        <img             src="img/imagen4.jpeg"
+                                         alt="" />
+                        <div class="checklist-servicio">
+                            <div class="service">
+                                <h3 class="n-service">
+                                    <span class="number">1</span>Misión
+                                </h3>
+                                <p>
+                                    Proporcionar atención veterinaria de alta calidad y compasión a nuestros pacientes, promoviendo la salud y el bienestar animal mientras construimos relaciones sólidas con nuestros clientes.
+                                </p>
+                            </div>
+                            <div class="service">
+                                <h3 class="n-service">
+                                    <span class="number">2</span>Visión
+                                </h3>
+                                <p>
+                                    Ser la principal elección en cuidado veterinario, enfocados en el bienestar animal, el crecimiento sostenible y el impacto positivo en la comunidad
+                                </p>
+                            </div>
+                            <div class="service">
+                                <h3 class="n-service">
+                                    <span class="number">3</span>Valores
+                                </h3>
+                                <p>
+                                    Compasión, Profesionalismo, Integridad, Trabajo en Equipo, Educación, Responsabilidad Social y Ambiental.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="gallery" id="portafolio">
+                    <div class="contenedor1">
+                        <h2 class="subtitulo">Galeria</h2>
+                        <div class="contenedor-galeria">
+                            <img
+                                src="img/perro.jpg"
+
+
+                                alt=""
+                                class="img-galeria"
+                                />
+                            <img
+                                src="img/perro2.jpg"
+
+
+                                alt=""
+                                class="img-galeria"
+                                />
+                            <img
+                                src="img/perro3.jpg"
+
+                                alt=""
+                                class="img-galeria"
+                                />
+                            <img
+                                src="img/gato1.jpg"
+
+
+                                alt=""
+                                class="img-galeria"
+                                />
+                            <img
+                                src="img/gato2.jpg"
+
+                                alt=""
+                                class="img-galeria"
+                                />
+                            <img
+                                src="img/gato3.jpg"
+
+                                alt=""
+                                class="img-galeria"
+                                />
+                        </div>
+                    </div>
+                </section>
+                <section class="imagen-light">
+                    <img src="WEB-INF/imagenes/imagen3.png" alt="" class="close" />
+                    <img src="WEB-INF/imagenes/imagen3.png" alt="" class="agregar-imagen" />
+                </section>
+                <div class="contenedor1" id="expertos">
+                    <h2 class="subtitulo">Expertos en:</h2>
+                    <section class="experts">
+                        <div class="card">
+                            <div class="face front">
+                                <img  src="img/final1.jpg"/>
+                                <h3 class="n-expert">Analisis</h3>
+                            </div>
+
+                            <div class="face back">
+                                <h3>Analisis</h3>
+                                <p>
+                                    Se pueden identificar ineficiencias o gastos innecesarios,
+                                    esto puede llevar a la implementación de medidas de reducción
+                                    de costos.
+                                </p>
+                                <div class="link"></div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="face front">
+                                <img src="img/final2.jpg"  />
+                                <h3 class="n-expert">Gestión</h3>
+                            </div>
+
+                            <div class="face back">
+                                <h3>Gestión</h3>
+                                <p>
+                                    Permite tener un mayor control sobre los recursos financieros
+                                    de la empresa, al establecer políticas claras, procesos de
+                                    aprobación y límites de gastos.
+                                </p>
+                                <div class="link"></div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="face front">
+                                <img src="img/final3.jpg" />
+                                <h3 class="n-expert">Administración</h3>
+                            </div>
+
+                            <div class="face back">
+                                <h3>Administración</h3>
+                                <p>
+                                    Involucra la creación de presupuestos detallados que asignan
+                                    los recursos financieros de manera adecuada, esto permite
+                                    establecer límites y metas de gastos.
+                                </p>
+                                <div class="link"></div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+
+    </ui:define>
+</ui:composition>

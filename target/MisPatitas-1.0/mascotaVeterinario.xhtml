@@ -1,0 +1,61 @@
+<!-- Importante: Asegúrate de que el nombre del Managed Bean sea consistente -->
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:param name="titulo" value="Mascota Veterinario"/>
+    <ui:define name="content">
+        <script type="text/javascript">
+            function irA(destino, tipoUsuario,idMascota) {
+                var codigo = localStorage.getItem('idCodigo');
+                var url = '/MisPatitas/' + destino + '.xhtml?prueba=pru&amp;tipoUsuario=' + tipoUsuario + '&amp;idCodigo=' + codigo+ '&amp;idMascota=' + idMascota;
+
+                window.location.href = url;
+            }
+        </script>
+        <h:form id="formMascotas" style="margin-top: 10vh">
+            <div class="madreMascotaUsuario">
+                <h1 style="font-size: 30px;text-align: center;text-transform: uppercase;padding: 15px">Mascotas Registradas</h1>
+                <div class="contenidoHistorial" style="display: flex;justify-content: center;">
+                    <h:dataTable id="tablaMascotas" value="#{historialBean.listaMascotaVeterinario}" style="text-align: center;width: 90%" var="g" border="1">
+                        <h:column>
+                            <f:facet name="header">Nombre</f:facet>
+                            <h:outputText value="#{g.nombreMascota}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Codigo Mascota</f:facet>
+                            <h:outputText value="#{g.idMascota}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Fecha Nacimiento</f:facet>
+                            <h:outputText value="#{g.fechaNacimiento}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Dueño</f:facet>
+                            <h:outputText value="#{g.nombreUsuario}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Raza</f:facet>
+                            <h:outputText value="#{g.razaMascota}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Sexo</f:facet>
+                            <h:outputText value="#{g.sexo}" />
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Ver Historial</f:facet>
+                            <a href="#" onclick="irA('historialVeterinario', 'veterinario',#{g.idMascota})"  style="padding: 1px;background-color: grey;color: white;cursor: pointer;">Ver Historial</a>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </div>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

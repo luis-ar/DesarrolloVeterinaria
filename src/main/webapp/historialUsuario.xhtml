@@ -1,0 +1,57 @@
+<!-- Importante: Asegúrate de que el nombre del Managed Bean sea consistente -->
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:param name="titulo" value="Historial Usuario"/>
+    <ui:define name="content">
+        <div class="contenedorHistorial" style="margin-top: 10vh;">
+            <h1 class="tituloHistorial" style="text-align: center">Historial Clínico</h1>
+
+            <c:choose>
+                <c:when test="${historialUsuarioBean.listaMascota.size() eq 0}">
+                    <p style="font-size: 25px;font-weight: bold;">Aún sus mascotas no tienen Historial Clinico.</p>
+                </c:when>
+                <c:otherwise>
+                    <h:dataTable value="#{historialUsuarioBean.listaMascota}" var="mascota" border="1"
+                                 style="margin: 0 auto;text-align: center; width: 90%">
+                        <h:column>
+                            <f:facet name="header">Nombre Mascota</f:facet>
+                            <span>#{mascota.nombreMascota}</span>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Descripcion</f:facet>
+                            <span>#{mascota.descripcion}</span>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Fecha Historial</f:facet>
+                            <span style="color: #{mascota.fechaHistorial ne null ? 'black' : 'red'}">
+                                #{mascota.fechaHistorial ne null ? mascota.fechaHistorial : 'Aún no hay historial'}
+                            </span>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Tratamiento</f:facet>
+
+                            <span style="color: #{mascota.tratamiento ne null ? 'black' : 'red'}">
+                                #{mascota.tratamiento ne null ? mascota.tratamiento : 'Aún no hay historial'}
+                            </span>
+                        </h:column>
+
+                    </h:dataTable>
+                </c:otherwise>
+            </c:choose>
+
+
+
+
+
+        </div>
+    </ui:define>
+</ui:composition>

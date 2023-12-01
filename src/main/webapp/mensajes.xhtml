@@ -1,0 +1,33 @@
+<!-- Importante: Asegúrate de que el nombre del Managed Bean sea consistente -->
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:param name="titulo" value="Mensajes"/>
+    <ui:define name="content">
+        <div class="contenedorHistorial" style="margin-top: 10vh">
+            <h1 class="tituloHistorial" style="text-align: center">Mensajes de los Usuarios</h1>
+
+            <h:dataTable style="width: 80%;margin: 0 auto;text-align: center;margin-top: 30px" value="#{mensajesBean.lista}" var="mensaje" border="1">
+                <h:column>
+                    <f:facet name="header">Nombre</f:facet>
+                    <span>#{mensaje.nombreUsuario}</span>
+                </h:column>
+                 <h:column>
+                    <f:facet name="header">Telefono</f:facet>
+                    <span>#{mensaje.telefonoUsuario}</span>
+                </h:column>
+                 <h:column>
+                    <f:facet name="header">Mensaje</f:facet>
+                    <span>#{mensaje.mensaje}</span>
+                </h:column>
+                
+            </h:dataTable>
+        </div>
+    </ui:define>
+</ui:composition>
